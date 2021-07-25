@@ -225,7 +225,7 @@ mv 20*.env historical/env_files/ > /dev/null 2>&1
 mv historical/20*.env historical/env_files/ > /dev/null 2>&1
 
 # Set vm.max_map_count for elasticsearch
-perl -i -pe "s/vm.max_map_count=nzbget/vm.max_map_count=262144/g" /etc/sysctl.conf
+sudo sed '/^vm.max_map_count=/{h;s/=.*/=262144/};${x;/^$/{s//vm.max_map_count=262144/;H};x}' /etc/sysctl.conf > /etc/sysctl.conf
 sudo sysctl -w vm.max_map_count=262144
 
 # Configure the access to NZBGet's webui
