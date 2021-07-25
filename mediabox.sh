@@ -101,13 +101,6 @@ time_zone=$(cat /etc/timezone)
 slash=$(ip a | grep "$locip" | cut -d ' ' -f6 | awk -F '/' '{print $2}')
 lannet=$(awk -F"." '{print $1"."$2"."$3".0"}'<<<$locip)/$slash
 
-# Get Private Internet Access Info
-if [ -z "$piaanswer" ] || [ "$piaanswer" == "y" ]; then
-read -r -p "What is your PIA Username?: " piauname
-read -r -s -p "What is your PIA Password? (Will not be echoed): " piapass
-printf "\\n\\n"
-fi
-
 # Get info needed for PLEX Official image
 if [ -z "$pmstag" ] || [ "$pmsanswer" == "y" ]; then
 read -r -p "Which PLEX release do you want to run? By default 'public' will be used. (latest, public, plexpass): " pmstag
@@ -181,6 +174,10 @@ mkdir -p sonarr
 mkdir -p speedtest
 mkdir -p sqlitebrowser
 mkdir -p tautulli
+mkdir -p elasticsearch
+mkdir -p pihole
+mkdir -p pihole/etc-pihole
+mkdir -p pihole/etc-dnsmasq.d
 
 # Create the .env file
 echo "Creating the .env file with the values we have gathered"
@@ -267,6 +264,7 @@ docker start nzbget > /dev/null 2>&1
 {
 echo "NZBGETUN=$daemonun"
 echo "NZBGETPASS=$daemonpass"
+echo "PIHOLEPASS=$daemonpass"
 } >> .env
 
 # Configure Muximux settings and files

@@ -265,7 +265,6 @@ services:
             - './plex/transcode:/transcode'
             - '${MISCDIR}:/data/misc'
             - '${MOVIEDIR}:/data/movies'
-            - '${MUSICDIR}:/data/music'
             - '${TVDIR}:/data/tvshows'
             - '/etc/localtime:/etc/localtime:ro'
 
@@ -417,3 +416,43 @@ services:
         volumes:
             - '/var/run/docker.sock:/var/run/docker.sock'
 
+    # ----------------------------------------
+    # ELASTICSEARCH
+    # ----------------------------------------
+    elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch
+        container_name: elasticsearch
+        restart: unless-stopped
+        network_mode: "bridge"
+        ports:
+            - '${IP_ADDRESS}:9200:9200'
+            - '${IP_ADDRESS}:9300:9300'
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - discovery.type=single-node
+        volumes:
+            - './elasticsearch:/usr/share/elasticsearch/data'
+
+    # ----------------------------------------
+    # PIHOLE
+    # ----------------------------------------
+    pihole:
+        image: pihole/pihole:latest
+        container_name: pihole
+        restart: unless-stopped
+        ports:
+            - "53:53/tcp"
+            - "53:53/udp"
+            - "67:67/udp"
+            - "8081:80/tcp"
+        environment:
+            - TZ=${TZ}
+            - WEBPASSWORD=${PIHOLEPASS}
+        volumes:
+            - './pihole/etc-pihole/:/etc/pihole/'
+            - './pihole/etc-dnsmasq.d/:/etc/dnsmasq.d/'
+        # Recommended but not required (DHCP needs NET_ADMIN)
+        #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
+        cap_add:
+            - NET_ADMIN
