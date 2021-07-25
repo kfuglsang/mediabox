@@ -224,6 +224,10 @@ docker rm -f uhttpd > /dev/null 2>&1
 mv 20*.env historical/env_files/ > /dev/null 2>&1
 mv historical/20*.env historical/env_files/ > /dev/null 2>&1
 
+# Set vm.max_map_count for elasticsearch
+perl -i -pe "s/vm.max_map_count=nzbget/vm.max_map_count=262144/g" /etc/sysctl.conf
+sudo sysctl -w vm.max_map_count=262144
+
 # Configure the access to NZBGet's webui
 if [ -z "$daemonun" ]; then
 echo "You need to set a username and password for some of the programs - including."

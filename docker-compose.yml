@@ -431,6 +431,11 @@ services:
             - PUID=${PUID}
             - PGID=${PGID}
             - discovery.type=single-node
+            - bootstrap.memory_lock=true
+        ulimits:
+            memlock:
+                soft: -1
+                hard: -1
         volumes:
             - './elasticsearch:/usr/share/elasticsearch/data'
 
@@ -441,6 +446,7 @@ services:
         image: pihole/pihole:latest
         container_name: pihole
         restart: unless-stopped
+        network_mode: "bridge"
         ports:
             - "53:53/tcp"
             - "53:53/udp"
