@@ -420,7 +420,7 @@ services:
     # ELASTICSEARCH
     # ----------------------------------------
     elasticsearch:
-        image: docker.elastic.co/elasticsearch/elasticsearch
+        image: docker.elastic.co/elasticsearch/elasticsearch:7.13.4
         container_name: elasticsearch
         restart: unless-stopped
         network_mode: "bridge"

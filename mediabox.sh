@@ -224,14 +224,6 @@ docker rm -f uhttpd > /dev/null 2>&1
 mv 20*.env historical/env_files/ > /dev/null 2>&1
 mv historical/20*.env historical/env_files/ > /dev/null 2>&1
 
-# Download & Launch the containers
-echo "The containers will now be pulled and launched"
-echo "This may take a while depending on your download speed"
-read -r -p "Press any key to continue... " -n1 -s
-printf "\\n\\n"
-docker-compose up -d --remove-orphans
-printf "\\n\\n"
-
 # Configure the access to NZBGet's webui
 if [ -z "$daemonun" ]; then
 echo "You need to set a username and password for some of the programs - including."
@@ -240,6 +232,21 @@ read -r -p "What would you like to use as the access username?: " daemonun
 read -r -p "What would you like to use as the access password?: " daemonpass
 printf "\\n\\n"
 fi
+
+# Push the NZBGet Access info to the .env file
+{
+echo "NZBGETUN=$daemonun"
+echo "NZBGETPASS=$daemonpass"
+echo "PIHOLEPASS=$daemonpass"
+} >> .env
+
+# Download & Launch the containers
+echo "The containers will now be pulled and launched"
+echo "This may take a while depending on your download speed"
+read -r -p "Press any key to continue... " -n1 -s
+printf "\\n\\n"
+docker-compose up -d --remove-orphans
+printf "\\n\\n"
 
 # Finish up the config
 printf "Configuring NZBGet, Muximux, and Permissions \\n"
@@ -259,13 +266,6 @@ perl -i -pe "s/ControlUsername=nzbget/ControlUsername=$daemonun/g"  nzbget/nzbge
 perl -i -pe "s/ControlPassword=tegbzn6789/ControlPassword=$daemonpass/g"  nzbget/nzbget.conf
 perl -i -pe "s/{MainDir}\/intermediate/{MainDir}\/incomplete/g" nzbget/nzbget.conf
 docker start nzbget > /dev/null 2>&1
-
-# Push the NZBGet Access info to the .env file
-{
-echo "NZBGETUN=$daemonun"
-echo "NZBGETPASS=$daemonpass"
-echo "PIHOLEPASS=$daemonpass"
-} >> .env
 
 # Configure Muximux settings and files
 while [ ! -f muximux/www/muximux/settings.ini.php-example ]; do sleep 1; done
