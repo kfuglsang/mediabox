@@ -9,7 +9,6 @@ Components include:
 * [Flaresolverr proxy server to bypass Cloudflare protection (Used with Jackett)](https://github.com/FlareSolverr/FlareSolverr)
 * [Glances system monitoring](https://nicolargo.github.io/glances/)
 * [Jackett Tracker API and Proxy](https://github.com/Jackett/Jackett)
-* [Minio cloud storage](https://www.minio.io/)
 * [Muximux Web based HTPC manager](https://github.com/mescon/Muximux)
 * [NetData System Monitoring](https://github.com/netdata/netdata)
 * [NZBGet Usenet Downloader](https://nzbget.net/)  

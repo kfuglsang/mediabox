@@ -75,14 +75,6 @@ icon = "muximux-jackett"
 color = "#000000"
 enabled = "true"
 
-[Minio]
-name = "Minio"
-url = "http://locip:9001"
-scale = 1
-icon = "muximux-stack"
-color = "#999999"
-enabled = "true"
-
 [NetData]
 name = "NetData"
 url = "http://locip:19999"

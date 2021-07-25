@@ -160,7 +160,6 @@ mkdir -p flaresolverr
 mkdir -p glances
 mkdir -p historical/env_files
 mkdir -p jackett
-mkdir -p minio
 mkdir -p muximux
 mkdir -p nzbget
 mkdir -p nzbhydra2
