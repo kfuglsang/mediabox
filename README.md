@@ -4,17 +4,11 @@ Mediabox is an all Docker Container based media aggregator stack.
 
 Components include:
 
-* [Couchpotato movie library manager](https://couchpota.to/)
-* [Deluge torrent client (using VPN)](http://deluge-torrent.org/)
 * [Dozzle realtime log viewer](https://github.com/amir20/dozzle)
 * [Duplicati Backup Software](https://www.duplicati.com/)
 * [Flaresolverr proxy server to bypass Cloudflare protection (Used with Jackett)](https://github.com/FlareSolverr/FlareSolverr)
 * [Glances system monitoring](https://nicolargo.github.io/glances/)
-* [Headphones automated music downloader](https://github.com/linuxserver/docker-headphones)
 * [Jackett Tracker API and Proxy](https://github.com/Jackett/Jackett)
-* [Jellyfin Free Software Media System](https://github.com/jellyfin/jellyfin)
-* [Lidarr Music collection manager](https://lidarr.audio/)
-* [MeTube Web GUI for youtube-dl](https://github.com/alexta69/metube)
 * [Minio cloud storage](https://www.minio.io/)
 * [Muximux Web based HTPC manager](https://github.com/mescon/Muximux)
 * [NetData System Monitoring](https://github.com/netdata/netdata)
@@ -27,12 +21,10 @@ Components include:
 * [Radarr movie library manager](https://radarr.video/)
 * [Requestrr Chatbot for Sonarr/Radarr/Ombi](https://github.com/darkalfx/requestrr)
 * [SABnzbd Usenet download tool](https://github.com/sabnzbd/sabnzbd)
-* [SickChill TV library manager](https://github.com/SickChill/SickChill)
 * [Sonarr TV library manager](https://sonarr.tv/)
 * [Speedtest - Tracker](https://github.com/henrywhitaker3/Speedtest-Tracker)
 * [SQLitebrowser DB browser for SQLite](https://sqlitebrowser.org/)
 * [Tautulli Plex Media Server monitor](https://github.com/tautulli/tautulli)
-* [Tdarr Distributed Transcoding System](https://tdarr.io)
 * [Watchtower Automatic container updater](https://github.com/containrrr/watchtower)
 
 ## Prerequisites
@@ -97,7 +89,7 @@ Reboot your machine manually, or using the command line:
 
 Once the prerequisites are all taken care of you can move forward with using mediabox.
 
-1. Clone the mediabox repository: `$ git clone https://github.com/tom472/mediabox.git`
+1. Clone the mediabox repository: `$ git clone https://github.com/kfuglsang/mediabox.git`
 
 2. Change directory into mediabox: `$ cd mediabox/`
 

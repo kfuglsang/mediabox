@@ -35,14 +35,6 @@ icon = "muximux-bullhorn"
 color = "#93c47d"
 enabled = "true"
 
-[Couchpotato]
-name = "CouchPotato"
-url = "http://locip:5050"
-scale = 1
-icon = "muximux-couchpotato"
-color = "#f85c22"
-enabled = "true"
-
 [Deluge]
 name = "Deluge"
 url = "http://locip:8112"
@@ -75,43 +67,12 @@ icon = "muximux-eye-plus"
 color = "#6aa84f"
 enabled = "true"
 
-[Headphones]
-name = "Headphones"
-url = "http://locip:8282"
-scale = 1
-icon = "muximux-headphones3"
-color = "#000000"
-enabled = "true"
-
 [Jackett]
 name = "Jackett"
 url = "http://locip:9117"
 scale = 1
 icon = "muximux-jackett"
 color = "#000000"
-enabled = "true"
-
-[Jellyfin]
-name = "JellyFin"
-url = "http://locip:8096"
-icon = "muximux-play2"
-color = "#674ea7"
-enabled = "true"
-
-[Lidarr]
-name = "Lidarr"
-url = "http://locip:8686"
-scale = 1
-icon = "muximux-music"
-color = "#93c47d"
-enabled = "true"
-
-[Metube]
-name = "Metube"
-url = "http://locip:8281"
-scale = 1
-icon = "muximux-youtube"
-color = "#cc0000"
 enabled = "true"
 
 [Minio]
@@ -194,11 +155,11 @@ icon = "muximux-search"
 color = "#674ea7"
 enabled = "true"
 
-[SickChill]
-name = "SickChill"
-url = "http://locip:8081"
+[PiHole]
+name = "PiHole"
+url = "http://locip:8081/admin"
 scale = 1
-icon = "muximux-tv"
+icon = "muximux-pihole"
 color = "#6fa8dc"
 enabled = "true"
 
@@ -232,12 +193,4 @@ url = "http://locip:8181"
 scale = 1
 icon = "muximux-plexivity"
 color = "#cc7b19"
-enabled = "true"
-
-[Tdarr]
-name = "Tdarr"
-url = "http://locip:8265"
-scale = 1
-icon = "muximux-spinner10"
-color = "#0b5394"
 enabled = "true"

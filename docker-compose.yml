@@ -13,62 +13,6 @@ version: '3.5'
 services:
 
     # ----------------------------------------
-    # COUCHPOTATO
-    # ----------------------------------------
-    couchpotato:
-        image: ghcr.io/linuxserver/couchpotato
-        container_name: couchpotato
-        restart: unless-stopped
-        network_mode: "bridge"
-        ports:
-            - '${IP_ADDRESS}:5050:5050'
-        environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
-        volumes:
-            - './couchpotato:/config'
-            - '${DLDIR}/completed:/downloads'
-            - '${MOVIEDIR}:/movies'
-            - '/etc/localtime:/etc/localtime:ro'
-
-    # ----------------------------------------
-    # DELUGEVPN
-    # ----------------------------------------
-    arch-delugevpn:
-        image: binhex/arch-delugevpn
-        container_name: delugevpn
-        restart: unless-stopped
-        network_mode: "bridge"
-        ports:
-            - '${IP_ADDRESS}:8112:8112'
-            - '${IP_ADDRESS}:8118:8118'
-            - '${IP_ADDRESS}:58846:58846'
-            - '${IP_ADDRESS}:58946:58946'
-        cap_add:
-            - NET_ADMIN
-        environment:
-            - VPN_ENABLED=yes
-            - VPN_USER=${PIAUNAME}
-            - VPN_PASS=${PIAPASS}
-            - VPN_REMOTE=${VPN_REMOTE}
-            - VPN_PORT=1198
-            - VPN_PROTOCOL=udp
-            - VPN_DEVICE_TYPE=tun
-            - VPN_PROV=pia
-            - STRONG_CERTS=no
-            - ENABLE_PRIVOXY=yes
-            - STRICT_PORT_FORWARD=yes
-            - LAN_NETWORK=${CIDR_ADDRESS}
-            - NAME_SERVERS=209.222.18.222,84.200.69.80,37.235.1.174,1.1.1.1,209.222.18.218,37.235.1.177,84.200.70.40,1.0.0.1
-            - DEBUG=false
-            - PUID=${PUID}
-            - PGID=${PGID}
-        volumes:
-            - '${DLDIR}:/data'
-            - './delugevpn/config:/config'
-            - '/etc/localtime:/etc/localtime:ro'
-
-    # ----------------------------------------
     # DOZZLE
     # ----------------------------------------
     dozzle:
@@ -139,25 +83,6 @@ services:
             - '/var/run/docker.sock:/var/run/docker.sock:ro'
 
     # ----------------------------------------
-    # HEADPHONES
-    # ----------------------------------------
-    headphones:
-        image: ghcr.io/linuxserver/headphones
-        container_name: headphones
-        restart: unless-stopped
-        network_mode: "bridge"
-        ports:
-            - '${IP_ADDRESS}:8282:8181'
-        environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
-            - TZ=${TZ}
-        volumes:
-            - './headphones:/config'
-            - '${DLDIR}/completed:/downloads'
-            - '${MUSICDIR}:/music'
-
-    # ----------------------------------------
     # JACKETT
     # ----------------------------------------
     jackett:
@@ -173,59 +98,6 @@ services:
         volumes:
             - './jackett:/config'
             - '${DLDIR}/completed:/downloads'
-            - '/etc/localtime:/etc/localtime:ro'
-
-    # ----------------------------------------
-    # JELLYFIN
-    # ----------------------------------------
-    jellyfin:
-        image: jellyfin/jellyfin
-        container_name: jellyfin
-        restart: unless-stopped
-        network_mode: "bridge"
-        user: "${PUID}:${PGID}"
-        ports:
-            - '${IP_ADDRESS}:8096:8096'
-        volumes:
-            - './jellyfin:/config'
-            - '${MISCDIR}:/media/misc'
-            - '${MOVIEDIR}:/media/movies'
-            - '${MUSICDIR}:/media/music'
-            - '${TVDIR}:/media/tv'
-            - '/etc/localtime:/etc/localtime:ro'
-
-    # ----------------------------------------
-    # LIDARR
-    # ----------------------------------------
-    lidarr:
-        image: ghcr.io/linuxserver/lidarr
-        container_name: lidarr
-        restart: unless-stopped
-        network_mode: "bridge"
-        ports:
-            - '${IP_ADDRESS}:8686:8686'
-        environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
-        volumes:
-            - './lidarr:/config'
-            - '${DLDIR}/completed:/data/completed'
-            - '${MUSICDIR}:/music'
-            - '/etc/localtime:/etc/localtime:ro'
-
-    # ----------------------------------------
-    # METUBE
-    # ----------------------------------------
-    metube:
-        image: alexta69/metube
-        container_name: metube
-        restart: unless-stopped
-        user: "${PUID}:${PGID}"
-        network_mode: "bridge"
-        ports:
-            - '${IP_ADDRESS}:8281:8081'
-        volumes:
-            - '${MISCDIR}:/downloads'
             - '/etc/localtime:/etc/localtime:ro'
 
     # ----------------------------------------
@@ -453,25 +325,6 @@ services:
             - ./requestrr:/config
 
     # ----------------------------------------
-    # SICKCHILL
-    # ----------------------------------------
-    sickchill:
-        image: ghcr.io/linuxserver/sickchill
-        container_name: sickchill
-        restart: unless-stopped
-        network_mode: "bridge"
-        ports:
-            - '${IP_ADDRESS}:8081:8081'
-        environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
-        volumes:
-            - './sickchill:/config'
-            - '${DLDIR}/completed:/downloads'
-            - '${TVDIR}:/tv'
-            - '/etc/localtime:/etc/localtime:ro'
-
-    # ----------------------------------------
     # SONARR
     # ----------------------------------------
     sonarr:
@@ -526,65 +379,6 @@ services:
         volumes:
             - ./sqlitebrowser:/config
             - ${PWD}:/config/mediabox
-
-    # ----------------------------------------
-    # TDARR
-    # ----------------------------------------
-    tdarr:
-        image: haveagitgat/tdarr:latest
-        container_name: tdarr
-        restart: unless-stopped
-        network_mode: "bridge"
-        ports:
-            - '${IP_ADDRESS}:8265:8265'
-            - '${IP_ADDRESS}:8266:8266'
-            - '${IP_ADDRESS}:8267:8267'
-        environment:
-            - TZ=${TZ}
-            - PUID=${PUID}
-            - PGID=${PGID}
-            - UMASK_SET=002
-            - serverIP=${IP_ADDRESS}
-            - serverPort=8266
-            - webUIPort=8265
-        volumes:
-            - './tdarr/server:/app/server'
-            - './tdarr/configs:/app/configs'
-            - './tdarr/logs:/app/logs'
-            - './tdarr/transcode_cache:/temp'
-            - '${MISCDIR}:/data/misc'
-            - '${MOVIEDIR}:/data/movies'
-            - '${MUSICDIR}:/data/music'
-            - '${TVDIR}:/data/tvshows'
-            - '/etc/localtime:/etc/localtime:ro'
-
-    # ----------------------------------------
-    # TDARR-NODE
-    # ----------------------------------------
-    tdarr-node:
-        image: haveagitgat/tdarr_node:latest
-        container_name: tdarr-node
-        restart: unless-stopped
-        network_mode: service:tdarr
-        environment:
-            - TZ=${TZ}
-            - PUID=${PUID}
-            - PGID=${PGID}
-            - UMASK_SET=002
-            - nodeID=Node_01
-            - nodeIP=${IP_ADDRESS}
-            - nodePort=8267
-            - serverIP=${IP_ADDRESS}
-            - serverPort=8266
-        volumes:
-            - './tdarr/configs:/app/configs'
-            - './tdarr/logs:/app/logs'
-            - './tdarr/transcode_cache:/temp'
-            - '${MISCDIR}:/data/misc'
-            - '${MOVIEDIR}:/data/movies'
-            - '${MUSICDIR}:/data/music'
-            - '${TVDIR}:/data/tvshows'
-            - '/etc/localtime:/etc/localtime:ro'
 
     # ----------------------------------------
     # TAUTULLI
