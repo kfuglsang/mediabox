@@ -241,6 +241,7 @@ fi
 echo "NZBGETUN=$daemonun"
 echo "NZBGETPASS=$daemonpass"
 echo "PIHOLEPASS=$daemonpass"
+echo "ELASTICSEARCHPASS=$daemonpass"
 } >> .env
 
 # Download & Launch the containers
