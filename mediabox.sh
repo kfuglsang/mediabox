@@ -177,6 +177,7 @@ mkdir -p elasticsearch
 mkdir -p pihole
 mkdir -p pihole/etc-pihole
 mkdir -p pihole/etc-dnsmasq.d
+mkdir -p samba
 
 # Create the .env file
 echo "Creating the .env file with the values we have gathered"
@@ -241,7 +242,8 @@ fi
 echo "NZBGETUN=$daemonun"
 echo "NZBGETPASS=$daemonpass"
 echo "PIHOLEPASS=$daemonpass"
-echo "ELASTICSEARCHPASS=$daemonpass"
+echo "SAMBAUN=$daemonun"
+echo "SAMBAPASS=$daemonpass"
 } >> .env
 
 # Download & Launch the containers
@@ -270,6 +272,14 @@ perl -i -pe "s/ControlUsername=nzbget/ControlUsername=$daemonun/g"  nzbget/nzbge
 perl -i -pe "s/ControlPassword=tegbzn6789/ControlPassword=$daemonpass/g"  nzbget/nzbget.conf
 perl -i -pe "s/{MainDir}\/intermediate/{MainDir}\/incomplete/g" nzbget/nzbget.conf
 docker start nzbget > /dev/null 2>&1
+
+# Configure Samba
+docker stop samba > /dev/null 2>&1
+perl -i -pe "s/daemonun/$daemonun/g" samba/config.yml
+perl -i -pe "s/daemonpass/$daemonpass/g" samba/config.yml
+perl -i -pe "s/puid/$PUID/g" samba/config.yml
+perl -i -pe "s/pgid/$PGID/g" samba/config.yml
+docker start samba > /dev/null 2>&1
 
 # Configure Muximux settings and files
 while [ ! -f muximux/www/muximux/settings.ini.php-example ]; do sleep 1; done

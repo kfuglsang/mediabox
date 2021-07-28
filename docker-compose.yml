@@ -445,3 +445,20 @@ services:
         #   https://github.com/pi-hole/docker-pi-hole#note-on-capabilities
         cap_add:
             - NET_ADMIN
+
+    # ----------------------------------------
+    # SAMBA
+    # ----------------------------------------
+        samba:
+            image: crazymax/samba
+            container_name: samba
+            restart: unless-stopped
+            network_mode: "bridge"
+            ports:
+                - '${IP_ADDRESS}:445:445/tcp'
+            environment:
+                - TZ=${TZ}
+                - SAMBA_LOG_LEVEL=0
+                - SAMBA_SERVER_STRING=media
+            volumes:
+                - './samba:/data/'

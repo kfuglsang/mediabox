@@ -1,0 +1,19 @@
+auth:
+  - user: daemonun
+    group: daemonun
+    uid: puid
+    gid: pgid
+    password: daemonpass
+
+global:
+  - "force user = daemonun"
+  - "force group = daemonun"
+
+share:
+  - name: share
+    path: /samba/share
+    browsable: yes
+    readonly: no
+    guestok: yes
+    writelist: daemonun
+    veto: no
