@@ -462,3 +462,18 @@ services:
             - SAMBA_SERVER_STRING=media
         volumes:
             - './samba:/data/'
+
+    # ----------------------------------------
+    # DUCKDNS
+    # ----------------------------------------
+    duckdns:
+        image: ghcr.io/linuxserver/duckdns
+        container_name: duckdns
+        environment:
+            - PUID=${PUID}
+            - PGID=${PGID}
+            - TZ=${TZ}
+            - SUBDOMAINS=${DUCKDNSDOMAIN}
+            - TOKEN=${DUCKDNSTOKEN}
+            - LOG_FILE=false
+        restart: unless-stopped

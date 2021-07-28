@@ -52,8 +52,8 @@ if [ -e 1.env ]; then
     # Grab the NBZGet usernames & passwords to reuse
     daemonun=$(grep CPDAEMONUN 1.env | cut -d = -f2)
     daemonpass=$(grep CPDAEMONPASS 1.env | cut -d = -f2)
-    piauname=$(grep PIAUNAME 1.env | cut -d = -f2)
-    piapass=$(grep PIAPASS 1.env | cut -d = -f2)
+    duckdnsdomain=$(grep DUCKDNSDOMAIN 1.env | cut -d = -f2)
+    duckdnstoken=$(grep DUCKDNSTOKEN 1.env | cut -d = -f2)
     pmstag=$(grep PMSTAG 1.env | cut -d = -f2)
     dldirectory=$(grep DLDIR 1.env | cut -d = -f2)
     tvdirectory=$(grep TVDIR 1.env | cut -d = -f2)
@@ -72,7 +72,7 @@ if [ -e 1.env ]; then
     printf "\\n\\n"
     read  -r -p "Do you need to change your PLEX Release Type? (y/n) " pmsanswer `echo \n`
     printf "\\n\\n"
-    read  -r -p "Do you need to change your PIA Credentials? (y/n) " piaanswer `echo \n`
+    read  -r -p "Do you need to change your DuckDNS Credentials? (y/n) " duckdnsanswer `echo \n`
     # Now we need ".env" to exist again so we can stop just the Medaibox containers
     mv 1.env .env
     # Stop the current Mediabox stack
@@ -100,6 +100,13 @@ time_zone=$(cat /etc/timezone)
 # Get CIDR Address
 slash=$(ip a | grep "$locip" | cut -d ' ' -f6 | awk -F '/' '{print $2}')
 lannet=$(awk -F"." '{print $1"."$2"."$3".0"}'<<<$locip)/$slash
+
+# Get DuckDNS Info
+if [ -z "$duckdnsanswer" ] || [ "$duckdnsanswer" == "y" ]; then
+read -r -p "What is your DuckDNS subdomain?: " duckdnsdomain
+read -r -s -p "What is your DuckDNS token? (Will not be echoed): " duckdnstoken
+printf "\\n\\n"
+fi
 
 # Get info needed for PLEX Official image
 if [ -z "$pmstag" ] || [ "$pmsanswer" == "y" ]; then
@@ -150,9 +157,6 @@ if [ -z "$moviedirectory" ]; then
     mkdir -p content/movies
     moviedirectory="$PWD/content/movies"
 fi
-
-# Adjust for Container name changes
-[ -d "sickrage/" ] && mv sickrage/ sickchill  # Switch from Sickrage to SickChill
 
 mkdir -p duplicati
 mkdir -p duplicati/backups
@@ -209,17 +213,12 @@ echo "CIDR_ADDRESS=$lannet"
 echo "TZ=$time_zone"
 echo "PMSTAG=$pmstag"
 echo "PMSTOKEN=$pmstoken"
+echo "DUCKDNSDOMAIN=$duckdnsdomain"
+echo "DUCKDNSTOKEN=$duckdnstoken"
 } >> .env
 echo ".env file creation complete"
 printf "\\n\\n"
 
-# Adjust for the Tautulli replacement of PlexPy
-docker rm -f plexpy > /dev/null 2>&1
-# Adjust for the Watchtower replacement of Ouroboros
-docker rm -f ouroboros > /dev/null 2>&1
-# Adjust for old uhttpd web container - Noted in issue #47
-docker rm -f uhttpd > /dev/null 2>&1
-[ -d "www/" ] && mv www/ historical/www/
 # Move back-up .env files
 mv 20*.env historical/env_files/ > /dev/null 2>&1
 mv historical/20*.env historical/env_files/ > /dev/null 2>&1
