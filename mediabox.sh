@@ -104,7 +104,7 @@ lannet=$(awk -F"." '{print $1"."$2"."$3".0"}'<<<$locip)/$slash
 # Get DuckDNS Info
 if [ -z "$duckdnsanswer" ] || [ "$duckdnsanswer" == "y" ]; then
 read -r -p "What is your DuckDNS subdomain?: " duckdnsdomain
-read -r -s -p "What is your DuckDNS token? (Will not be echoed): " duckdnstoken
+read -r -p "What is your DuckDNS token?: " duckdnstoken
 printf "\\n\\n"
 fi
 
