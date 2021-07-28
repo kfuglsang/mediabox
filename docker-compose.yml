@@ -337,24 +337,6 @@ services:
             - './speedtest:/config'
 
     # ----------------------------------------
-    # SQLITEBROWSER
-    # ----------------------------------------
-    sqlitebrowser:
-        image: ghcr.io/linuxserver/sqlitebrowser
-        container_name: sqlitebrowser
-        restart: unless-stopped
-        network_mode: "bridge"
-        ports:
-            - ${IP_ADDRESS}:3000:3000
-        environment:
-            - PUID=${PUID}
-            - PGID=${PGID}
-            - TZ=${TZ}
-        volumes:
-            - ./sqlitebrowser:/config
-            - ${PWD}:/config/mediabox
-
-    # ----------------------------------------
     # TAUTULLI
     # ----------------------------------------
     tautulli:

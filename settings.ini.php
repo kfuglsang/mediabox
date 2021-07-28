@@ -171,14 +171,6 @@ icon = "muximux-stopwatch"
 color = "#cc0000"
 enabled = "true"
 
-[Sqlitebrowser]
-name = "SQLitebrowser"
-url = "http://locip:3000"
-scale = 1
-icon = "muximux-database"
-color = "#9fc5e8"
-enabled = "true"
-
 [Tautulli]
 name = "Tautulli"
 url = "http://locip:8181"

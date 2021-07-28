@@ -175,9 +175,7 @@ mkdir -p radarr
 mkdir -p requestrr
 mkdir -p sonarr
 mkdir -p speedtest
-mkdir -p sqlitebrowser
 mkdir -p tautulli
-mkdir -p elasticsearch
 mkdir -p pihole
 mkdir -p pihole/etc-pihole
 mkdir -p pihole/etc-dnsmasq.d
